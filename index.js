@@ -17,11 +17,13 @@ app.use(express.json());
 
 //Configure CORS
 const corsOptions = {
-origin: "https://kindle-frontend-mern.vercel.app/", //Allow all origins (for development). For production, specify your domain
+origin: "https://kindle-frontend-mern.vercel.app",
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 };
+
+app.options("*", cors(corsOptions));
 app.use(cors(corsOptions));
 
 app.use("/api/books", bookRoute);
