@@ -7,9 +7,9 @@ const router = express.Router();
 
 router.post('/signup', async (req, res) => {
     const { name, email, password, confirmpassword } = req.body;
-if (!name || !email || !password || !confirmpassword) {
-        return res.status(400).json({ message: 'Please fill in all fields' });
-    }
+// if (!name || !email || !password || !confirmpassword) {
+//         return res.status(400).json({ message: 'Please fill in all fields' });
+//     }
 
     // 2. Check if passwords match
     if (password !== confirmpassword) {
