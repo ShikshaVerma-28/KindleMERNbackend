@@ -6,7 +6,16 @@ const jwt = require('jsonwebtoken')
 const router = express.Router();
 
 router.post('/signup', async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, confirmpassword } = req.body;
+if (!name || !email || !password || !confirmpassword) {
+        return res.status(400).json({ message: 'Please fill in all fields' });
+    }
+
+    // 2. Check if passwords match
+    if (password !== confirmpassword) {
+        return res.status(400).json({ message: 'Passwords do not match' });
+    }
+    
     try {
         //check if user already exist
         let user = await User.findOne({ email });
@@ -25,8 +34,8 @@ router.post('/signup', async (req, res) => {
         res.status(201).json({ message: 'User created successfully' })
     }
     catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Server error' })
+        console.error("Signup Error:", error.message);
+        res.status(500).json({ message: 'Server error' });
     }
 })
 router.post('/login', async (req, res) => {
